@@ -45,6 +45,11 @@ private extension UILabel {
         }
         self.sizeToFit()
     }
+    
+    func update(withText: String) {
+        self.text = withText
+        self.sizeToFit()
+    }
 }
 
 /**
@@ -87,6 +92,8 @@ class UICircularProgressRingLayer: CALayer {
     @NSManaged var customFontWithName: String?
     @NSManaged var valueIndicator: String
     @NSManaged var showFloatingPoint: Bool
+    @NSManaged var textValue: String?
+
     @NSManaged var decimalPlaces: Int
     
     var animationDuration: TimeInterval = 1.0
@@ -239,8 +246,16 @@ class UICircularProgressRingLayer: CALayer {
             valueLabel.font = UIFont(name: fName, size: fontSize)
         }
         
-        valueLabel.update(withValue: value, valueIndicator: valueIndicator,
-                          showsDecimal: showFloatingPoint, decimalPlaces: decimalPlaces)
+        if let text = self.textValue {
+            valueLabel.update(withText: text)
+        } else {
+            valueLabel.update(withValue: value, valueIndicator: valueIndicator, showsDecimal: showFloatingPoint, decimalPlaces: decimalPlaces)
+        }
+        
+
+        
+        // valueLabel.update(withValue: value, valueIndicator: valueIndicator,
+        //                  showsDecimal: showFloatingPoint, decimalPlaces: decimalPlaces)
         
         // Deterime what should be the center for the label
         valueLabel.center = CGPoint(x: bounds.midX, y: bounds.midY)

@@ -32,6 +32,6 @@
  ## Author:
  Luis Padron
  */
-public protocol UICircularProgressRingDelegate {
-    func finishedUpdatingProgress(forRing ring: UICircularProgressRingView)
+@objc public protocol UICircularProgressRingDelegate {
+    @objc optional func updateIndicatorWithValue(value: CGFloat) -> String?
 }

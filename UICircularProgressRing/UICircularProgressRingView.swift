@@ -605,13 +605,17 @@ import UIKit
         CATransaction.begin()
         CATransaction.setCompletionBlock {
             // Call the closure block
-            self.delegate?.finishedUpdatingProgress(forRing: self)
             if let comp = completion {
                 comp()
             }
         }
         self.value = value
         self.ringLayer.value = value
+        
+        if let textValue = self.delegate?.updateIndicatorWithValue!(value: value) {
+            self.ringLayer.textValue = textValue
+        }
+        
         CATransaction.commit()
     }
 }
